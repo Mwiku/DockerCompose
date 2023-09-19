@@ -1,0 +1,33 @@
+version: "3.1"
+services:
+  ssh_jumphost:
+    #image: ghcr.io/linuxserver/openssh-server
+    container_name: ssh_jumphost
+    hostname: ssh-jumphost #optional
+    # disable login for user
+    # /usr/sbin/usermod -s /bin/false callhome
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+      - PUBLIC_KEY_DIR=/authorized_keys.d
+      - SUDO_ACCESS=false
+      - USER_NAME=jump
+      - DOCKER_MODS=linuxserver/mods:openssh-server-ssh-tunnel
+    volumes:
+      - /home/gapit/ssh_jumphost/config:/config
+      - /home/gapit/ssh_jumphost/authorized_keys.d:/authorized_keys.d
+    ports:
+      - 2222:2222 # openssh-server runs on 2222
+    networks:
+      gapit:
+        ipv4_address: 172.28.0.5
+      wg-link:
+        ipv4_address: 172.30.0.20
+    restart: unless-stopped
+
+# networks:
+#   wg-link:
+#     external: true
+#   gapit:
+#     external: true

@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  e3-sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest	
+    container_name: e3-sql
+    restart: always
+    volumes:
+      - /var/lib/docker/volumes/mssql:/var/opt/mssql
+    ports:
+      - 1433:1433
+    networks:
+      - e3
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=changame
+
+# networks:
+#   mssql:
+#     external:
+#       name: mssql 

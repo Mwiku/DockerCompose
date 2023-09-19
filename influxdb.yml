@@ -1,0 +1,16 @@
+
+version: "3"
+services:
+  influx:
+    image: influxdb:2.7
+    container_name: influxdb
+    restart: always
+    ports:
+      - "8092:8086"
+    volumes:
+      - /var/lib/docker/volumes/influx:/var/lib/influxdb2
+
+# networks:
+#   default:
+#     name: "gm"
+#     external: true
