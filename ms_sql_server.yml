@@ -13,7 +13,7 @@ services:
       - e3
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=changame
+      - MSSQL_SA_PASSWORD=Zakatundu##22
 
 # networks:
 #   mssql:
