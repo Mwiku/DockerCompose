@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+    rust-cli:
+        image: mwizak/rust-cli
+        container_name: rust-cli
+        restart: always
+        depends_on: 
+          - influxdb
+        networks:
+          - rust_net
+    influxdb:
+        image: influxdb
+        container_name: influxdbr
+        restart: always
+        networks:
+          - rust_net
+        
+        environment: 
+          - INFLUXDB_DB=bacnet_data
+          - INFLUXDB_ADMIN_USER=
+          - INFLUXDB_ADMIN_PASSWORD=
+
+        ports:
+          - '8087:8086'
+        volumes:
+          - influxdb_data:/var/lib/influxdb
+volumes:
+  influxdb_data: {}
+networks:
+  rust_net:
+    driver: bridge
