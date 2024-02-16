@@ -1,0 +1,13 @@
+# ARG 10.0.0.132
+
+FROM rust:latest
+
+# Set the working directory in the container 
+WORKDIR /usr/bin/rust_app
+
+# Project file to the working directory
+COPY . .
+
+RUN cargo build --release
+
+CMD ["./target/release/read_json"]
